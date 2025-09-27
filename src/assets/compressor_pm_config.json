@@ -1,0 +1,338 @@
+{
+  "app": {
+    "title": "Gas Compressor PM Dashboard",
+    "nan_label": "—",
+    "export_filename": "compressor_PM_report.pdf",
+    "units": {
+      "bearing_vib_DE_mm_s": "mm/s",
+      "bearing_vib_NDE_mm_s": "mm/s",
+      "axial_disp_um": "µm",
+      "suction_P_bar": "bar",
+      "discharge_P_bar": "bar",
+      "flow_rate_Am3_h": "Am³/h",
+      "speed_rpm": "rpm",
+      "TT_in_C": "°C",
+      "TT_out_C": "°C",
+      "lube_oil_temp_C": "°C",
+      "lube_oil_dp_bar": "bar",
+      "particle_count_ISO": "ISO 4406",
+      "seal_gas_dp_bar": "bar",
+      "seal_flow_Nm3_h": "Nm³/h",
+      "surge_margin_pct": "%",
+      "recycle_valve_pos_pct": "%",
+      "loop_osc_index": "-",
+      "motor_current_A": "A",
+      "exhaust_TT_spread_C": "°C",
+      "GT_load_pct": "%",
+      "ambient_T_C": "°C",
+      "bpfo_amp": "-",
+      "anomaly_prob": "-"
+    }
+  },
+  "health_score": {
+    "description": "Global health score for the compressor train (0 worst, 100 best).",
+    "weights": {
+      "vibration": 0.35,
+      "temp_rise": 0.2,
+      "surge_risk": 0.2,
+      "lube_oil": 0.15,
+      "anomaly_prob": 0.1
+    },
+    "normalization": {
+      "bearing_vib_DE_mm_s": {
+        "good": 2.5,
+        "warn": 4.5,
+        "bad": 7.0,
+        "max": 12
+      },
+      "bearing_vib_NDE_mm_s": {
+        "good": 2.5,
+        "warn": 4.5,
+        "bad": 7.0,
+        "max": 12
+      },
+      "axial_disp_um": {
+        "good": 50,
+        "warn": 80,
+        "bad": 100,
+        "max": 150
+      },
+      "TT_rise_C": {
+        "good": 10,
+        "warn": 20,
+        "bad": 30,
+        "max": 50
+      },
+      "surge_margin_pct": {
+        "good": 30,
+        "warn": 20,
+        "bad": 10,
+        "min": 0
+      },
+      "lube_oil_dp_bar": {
+        "good": 0.2,
+        "warn": 0.35,
+        "bad": 0.5,
+        "max": 1.0
+      },
+      "anomaly_prob": {
+        "good": 0.1,
+        "warn": 0.3,
+        "bad": 0.6,
+        "max": 1.0
+      }
+    },
+    "formula_hint": "score = 100 - (w_vib * norm_vib + w_temp * norm_temp_rise + w_surge * norm_surge + w_oil * norm_lube + w_ml * anomaly_prob_norm) * 100"
+  },
+  "matrix_assets": [
+    {
+      "id": "bearing_DE",
+      "name": "Compressor Bearing (DE)",
+      "component": "Mechanical",
+      "tags": [
+        "bearing_vib_DE_mm_s",
+        "axial_disp_um",
+        "bpfo_amp"
+      ],
+      "failure_modes": [
+        "Wear",
+        "Misalignment"
+      ],
+      "downtime_impact": "High",
+      "risk_calc": {
+        "health_score_formula": "100 - (40*norm(bearing_vib_DE_mm_s) + 30*norm(axial_disp_um) + 30*norm(bpfo_amp))"
+      },
+      "days_to_action_logic": "threshold_crossing",
+      "action": "Inspect"
+    },
+    {
+      "id": "bearing_NDE",
+      "name": "Compressor Bearing (NDE)",
+      "component": "Mechanical",
+      "tags": [
+        "bearing_vib_NDE_mm_s",
+        "axial_disp_um"
+      ],
+      "failure_modes": [
+        "Wear"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (50*norm(bearing_vib_NDE_mm_s) + 50*norm(axial_disp_um))"
+      },
+      "action": "Inspect"
+    },
+    {
+      "id": "driver_motor",
+      "name": "Motor Drive",
+      "component": "Power",
+      "tags": [
+        "motor_current_A"
+      ],
+      "failure_modes": [
+        "Insulation Degradation",
+        "Unbalance"
+      ],
+      "downtime_impact": "Critical",
+      "risk_calc": {
+        "health_score_formula": "100 - (100*norm(motor_current_A))"
+      },
+      "action": "Replace/Overhaul"
+    },
+    {
+      "id": "driver_GT",
+      "name": "Gas Turbine Driver",
+      "component": "Power",
+      "tags": [
+        "exhaust_TT_spread_C",
+        "GT_load_pct"
+      ],
+      "failure_modes": [
+        "Combustion Instability",
+        "Hot Section Wear"
+      ],
+      "downtime_impact": "Critical",
+      "risk_calc": {
+        "health_score_formula": "100 - (70*norm(exhaust_TT_spread_C) + 30*norm(GT_load_pct))"
+      },
+      "action": "Overhaul Check"
+    },
+    {
+      "id": "lube_oil",
+      "name": "Lube Oil System",
+      "component": "Utility",
+      "tags": [
+        "lube_oil_temp_C",
+        "lube_oil_dp_bar",
+        "particle_count_ISO"
+      ],
+      "failure_modes": [
+        "Filter Clog",
+        "Oil Degradation"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (60*norm(lube_oil_dp_bar) + 40*norm(lube_oil_temp_C))"
+      },
+      "action": "Monitor"
+    },
+    {
+      "id": "seal_gas",
+      "name": "Seal Gas System",
+      "component": "Utility",
+      "tags": [
+        "seal_gas_dp_bar",
+        "seal_flow_Nm3_h"
+      ],
+      "failure_modes": [
+        "Seal Leak",
+        "DP Loss"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (60*norm(seal_gas_dp_bar) + 40*norm(seal_flow_Nm3_h))"
+      },
+      "action": "Monitor"
+    },
+    {
+      "id": "antisurge_valve",
+      "name": "Anti-Surge / Recycle Valve",
+      "component": "Control",
+      "tags": [
+        "recycle_valve_pos_pct",
+        "surge_margin_pct"
+      ],
+      "failure_modes": [
+        "Stiction",
+        "Erosion"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (40*norm(recycle_valve_pos_pct) + 60*norm(surge_margin_pct))"
+      },
+      "action": "Inspect"
+    },
+    {
+      "id": "coolers",
+      "name": "Inter/After Coolers",
+      "component": "Heat Exchanger",
+      "tags": [
+        "lube_oil_dp_bar",
+        "TT_in_C",
+        "TT_out_C"
+      ],
+      "failure_modes": [
+        "Fouling"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (100*norm(TT_out_C-TT_in_C))"
+      },
+      "action": "Clean"
+    },
+    {
+      "id": "control_loops",
+      "name": "Control Loops",
+      "component": "Controls",
+      "tags": [
+        "loop_osc_index",
+        "surge_margin_pct"
+      ],
+      "failure_modes": [
+        "Instability"
+      ],
+      "downtime_impact": "Medium",
+      "risk_calc": {
+        "health_score_formula": "100 - (70*norm(loop_osc_index) + 30*norm(surge_margin_pct))"
+      },
+      "action": "Calibrate"
+    }
+  ],
+  "risk_model": {
+    "downtime_horizon_days": 30,
+    "features": [
+      "bearing_vib_DE_mm_s",
+      "bearing_vib_NDE_mm_s",
+      "axial_disp_um",
+      "TT_out_C_minus_TT_in_C",
+      "lube_oil_dp_bar",
+      "seal_gas_dp_bar",
+      "surge_margin_pct",
+      "recycle_valve_pos_pct",
+      "loop_osc_index",
+      "trip_count_90d",
+      "start_count_7d",
+      "ambient_T_C",
+      "anomaly_prob"
+    ],
+    "breakdown_labels": [
+      "Bearing Degradation",
+      "Driver Issues",
+      "Surge/Control",
+      "Cooling Fouling"
+    ]
+  },
+  "thresholds": {
+    "bearing_vib_mm_s": {
+      "medium": 4.0,
+      "high": 7.0
+    },
+    "axial_disp_um": {
+      "medium": 80,
+      "high": 100
+    },
+    "surge_margin_pct": {
+      "medium": 20,
+      "high": 10
+    },
+    "lube_oil_dp_bar": {
+      "medium": 0.35,
+      "high": 0.5
+    },
+    "TT_rise_C": {
+      "medium": 20,
+      "high": 30
+    },
+    "exhaust_TT_spread_C": {
+      "medium": 10,
+      "high": 20
+    },
+    "loop_osc_index": {
+      "medium": 0.5,
+      "high": 0.8
+    }
+  },
+  "schedule_rules": [
+    {
+      "name": "Bently Nevada route",
+      "when": "weekly",
+      "priority": "HIGH"
+    },
+    {
+      "name": "Anti-surge valve stroke test",
+      "when": "biweekly",
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "Lube oil filter change",
+      "when": "monthly",
+      "priority": "LOW"
+    },
+    {
+      "name": "Intercooler cleaning",
+      "when": "monthly",
+      "priority": "MEDIUM"
+    }
+  ],
+  "ui": {
+    "colors": {
+      "good": "#16a34a",
+      "warning": "#f59e0b",
+      "critical": "#ef4444"
+    },
+    "show_units": true,
+    "sparklines": {
+      "unified_scale_within_group": true
+    }
+  }
+}
