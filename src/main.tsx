@@ -20,7 +20,7 @@ import "./styles/components.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/Gas_Maintenance_DEMO/">
       <App />
     </BrowserRouter>
   </React.StrictMode>
