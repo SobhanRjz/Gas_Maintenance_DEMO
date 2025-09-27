@@ -5,7 +5,7 @@
 .landing-page {
   position: relative;
   min-height: 100vh;
-  background: url('./landingpage_bg.jpg') center/cover no-repeat;
+  background: url('/Gas_Maintenance_DEMO/landingpage_bg.jpg') center/cover no-repeat;
   background-attachment: fixed;
   display: flex;
   align-items: center;
