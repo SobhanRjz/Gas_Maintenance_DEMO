@@ -14,13 +14,6 @@ function riskBadge(impact: string) {
   }
 }
 
-function actionPriority(action?: string) {
-  if (!action) return "Low";
-  const a = action.toLowerCase();
-  if (a.includes("replace") || a.includes("overhaul")) return "High";
-  if (a.includes("inspect") || a.includes("check")) return "Medium";
-  return "Low";
-}
 
 export default function MaintenancePage() {
   const [filter, setFilter] = useState<Filter>("all");
