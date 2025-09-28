@@ -6,9 +6,10 @@ type Filter = "all" | "critical" | "maintenance";
 
 function riskBadge(impact: string) {
   switch (impact.toLowerCase()) {
-    case "critical": return <span className="risk-badge high">Critical</span>;
-    case "high": return <span className="risk-badge high">High</span>;
+    case "critical":
+    case "high": return <span className="risk-badge high">Critical</span>;
     case "medium": return <span className="risk-badge medium">Medium</span>;
+    case "normal": return <span className="risk-badge low">Normal</span>;
     default: return <span className="risk-badge low">Low</span>;
   }
 }
@@ -65,28 +66,15 @@ export default function MaintenancePage() {
       </div>
 
       {/* Overall health style block like result.html */}
-      <div className="overall-health card">
-        <div className="health-metrics">
-          <div className="metric-item">
-            <span className="metric-label">Critical Assets</span>
-            <span className="metric-value risk-medium">
-              {assets.filter(a => a.downtime_impact.toLowerCase() === "critical").length}
-            </span>
-          </div>
-          <div className="metric-item">
-            <span className="metric-label">Next Inspection</span>
-            <span className="metric-value">7 days</span>
-          </div>
-        </div>
-      </div>
+
 
       {/* Asset matrix table — styled with your CSS */}
       <div className="enhanced-asset-health">
         <div className="table-header">
-          <h3>📊 Detailed Asset Health Matrix</h3>
+          <h3>📊 Detailed Component Health Matrix</h3>
           <div className="table-controls">
             <select className="select-control" value={filter} onChange={e => setFilter(e.target.value as Filter)}>
-              <option value="all">All Assets</option>
+              <option value="all">All Components</option>
               <option value="critical">Critical Only</option>
               <option value="maintenance">Due for Maintenance</option>
             </select>
@@ -97,11 +85,10 @@ export default function MaintenancePage() {
           <table className="asset-health-table">
             <thead>
               <tr>
-                <th>Asset</th>
                 <th>Component</th>
+                <th>Area</th>
                 <th>Health Score</th>
                 <th>Risk Level</th>
-                <th>Downtime Impact</th>
                 <th>Failure Mode</th>
                 <th>Days to Action</th>
                 <th>Trend</th>
@@ -110,8 +97,10 @@ export default function MaintenancePage() {
             </thead>
             <tbody>
               {filtered.map(a => {
-                // Mock health score calculation (0-100)
-                const healthScore = Math.floor(Math.random() * 40) + 60; // 60-100 range
+                // Static health score based on downtime impact
+                const healthScore = a.downtime_impact.toLowerCase() === 'critical' ? 15 :
+                                   a.downtime_impact.toLowerCase() === 'high' ? 35 :
+                                   a.downtime_impact.toLowerCase() === 'medium' ? 65 : 85;
 
                 // Calculate days to action based on multiple factors
                 let daysToAction;
@@ -136,12 +125,11 @@ export default function MaintenancePage() {
                     <td>{a.name}</td>
                     <td>{a.component}</td>
                     <td>
-                      <span className={`health-score ${healthScore > 80 ? 'ok' : healthScore > 60 ? 'warn' : 'danger'}`}>
+                      <span className={`health-score ${healthScore > 50 ? 'normal' : healthScore > 20 ? 'medium' : 'critical'}`}>
                         {healthScore}
                       </span>
                     </td>
-                    <td>{riskBadge(a.downtime_impact)}</td>
-                    <td>{a.downtime_impact}</td>
+                    <td>{riskBadge(healthScore > 50 ? 'normal' : healthScore > 20 ? 'medium' : 'critical')}</td>
                     <td>{a.failure_modes[0] || "N/A"}</td>
                     <td>{daysToAction}</td>
                     <td>
@@ -152,7 +140,7 @@ export default function MaintenancePage() {
                     <td>
                       <Link className="btn ghost btn-xs" to={`/asset/${encodeURIComponent(a.id)}`}>
                         <span className="cta-icon">🔍</span>
-                        Inspect
+                        details
                       </Link>
                     </td>
                   </tr>
@@ -174,7 +162,11 @@ export default function MaintenancePage() {
         <div className="timeline-content">
           <div className="timeline">
             {filtered.slice(0, 5).map((a, i) => {
-              const priority = actionPriority(a.action);
+              // Calculate health score and priority based on risk level
+              const healthScore = a.downtime_impact.toLowerCase() === 'critical' ? 15 :
+                                 a.downtime_impact.toLowerCase() === 'high' ? 35 :
+                                 a.downtime_impact.toLowerCase() === 'medium' ? 65 : 85;
+              const priority = healthScore > 50 ? 'Normal' : healthScore > 20 ? 'Medium' : 'Critical';
               const date = new Date(Date.now() + (i*7+5)*24*3600*1000)
                 .toLocaleDateString("en-US",{month:"short", day:"numeric", year:"numeric"});
               const isLast = i === filtered.slice(0, 5).length - 1;

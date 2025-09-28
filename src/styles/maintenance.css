@@ -458,6 +458,16 @@
   background: #10b981;
 }
 
+.timeline-dot.priority-normal {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.timeline-dot.priority-critical {
+  border-color: #ef4444;
+  background: #ef4444;
+}
+
 .timeline-line {
   width: 2px;
   height: 100%;
@@ -540,6 +550,26 @@
 
 .timeline-priority.priority-low::before {
   content: '⬇️';
+  font-size: 10px;
+}
+
+.timeline-priority.priority-normal {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.timeline-priority.priority-normal::before {
+  content: '✅';
+  font-size: 10px;
+}
+
+.timeline-priority.priority-critical {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.timeline-priority.priority-critical::before {
+  content: '🚨';
   font-size: 10px;
 }
 

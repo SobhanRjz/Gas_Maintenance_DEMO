@@ -14,10 +14,10 @@ export default function LandingPage() {
       <div className="landing-content">
         <div className="landing-header">
           <h1 className="landing-title">
-            Gas Compressor
+            Compressor Maintenance
           </h1>
           <p className="landing-subtitle">
-            Maintenance Platform
+             Platform
           </p>
           <p className="landing-description">
             Engineering Confidence, One Compressor at a Time.
