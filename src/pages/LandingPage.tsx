@@ -12,11 +12,11 @@ export default function LandingPage() {
   return (
     <div className="landing-page">
       <div className="landing-overlay"></div>
+      <div className="landing-logo">
+        <img src={logo} alt="Company Logo" className="logo-image" />
+      </div>
       <div className="landing-content">
         <div className="landing-header">
-          <div className="landing-logo">
-            <img src={logo} alt="Company Logo" className="logo-image" />
-          </div>
           <h1 className="landing-title">
             Compressor Maintenance
           </h1>
