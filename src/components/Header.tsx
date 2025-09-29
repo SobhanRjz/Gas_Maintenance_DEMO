@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logo from "../assets/Logo.jpg";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -25,7 +26,9 @@ export default function Header() {
           tabIndex={0}
           aria-label="Go to Overview"
         >
-          <div className="logo">GC</div>
+          <div className="logo">
+            <img src={logo} alt="Company Logo" className="header-logo" />
+          </div>
           <span className="brand-name">Predictive Maintenance</span>
         </div>
 

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/Logo.jpg";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ export default function LandingPage() {
       <div className="landing-overlay"></div>
       <div className="landing-content">
         <div className="landing-header">
+          <div className="landing-logo">
+            <img src={logo} alt="Company Logo" className="logo-image" />
+          </div>
           <h1 className="landing-title">
             Compressor Maintenance
           </h1>

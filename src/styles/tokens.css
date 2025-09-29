@@ -1,5 +1,5 @@
 :root{
-  --bg:#0a0b0e;              /* Deeper, more modern dark */
+  --bg:#101010;              /* Custom background color */
   --panel:#111318;           /* Refined panel color */
   --panel-2:#161b22;         /* Secondary panel with slight warmth */
   --border:rgba(255,255,255,.08); /* Slightly more visible borders */
@@ -132,6 +132,13 @@ html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-ap
 .brand{display:flex;align-items:center;gap:10px;color:var(--text)}
 .logo{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
   background:linear-gradient(45deg,var(--accent-2),var(--accent));color:#ffffff;font-weight:800}
+
+.header-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
 .search{flex:1;display:flex}
 .search input{width:100%;background:var(--panel);border:1px solid var(--border);
   color:var(--text);border-radius:12px;padding:.55rem .8rem}
@@ -145,22 +152,22 @@ html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-ap
 .tab[aria-current="page"]{color:var(--text);font-weight:600;border-bottom:2px solid var(--accent)}
 
 /* layout */
-.container{padding:16px;max-width:1280px;margin:0 auto;margin-top:80px} /* 160px header + 32px status + 32px nav-filters */
-@media (max-width:768px){.container{margin-top:168px}} /* 104px header + 32px status + 32px nav-filters */
-@media (max-width:480px){.container{margin-top:128px}} /* 48px header + 40px nav-filters + 40px filters */
+.container{padding:16px;max-width:1280px;margin:0 auto;margin-top:96px} /* 176px header + 32px status + 32px nav-filters */
+@media (max-width:768px){.container{margin-top:184px}} /* 120px header + 32px status + 32px nav-filters */
+@media (max-width:480px){.container{margin-top:144px}} /* 64px header + 40px nav-filters + 40px filters */
 
 /* Adjust container margin for scrolled header states */
 @media (min-width: 1025px) {
-  .header--scrolled ~ main .container { margin-top: 216px; } /* 184px header + 32px nav-filters */
+  .header--scrolled ~ main .container { margin-top: 232px; } /* 200px header + 32px nav-filters */
 }
 @media (min-width: 769px) and (max-width: 1024px) {
-  .header--scrolled ~ main .container { margin-top: 160px; } /* 128px header + 32px nav-filters */
+  .header--scrolled ~ main .container { margin-top: 176px; } /* 144px header + 32px nav-filters */
 }
 @media (min-width: 481px) and (max-width: 768px) {
-  .header--scrolled ~ main .container { margin-top: 160px; } /* 128px header + 32px nav-filters */
+  .header--scrolled ~ main .container { margin-top: 176px; } /* 144px header + 32px nav-filters */
 }
 @media (max-width: 480px) {
-  .header--scrolled ~ main .container { margin-top: 120px; } /* 80px nav-filters-section + 40px filters */
+  .header--scrolled ~ main .container { margin-top: 136px; } /* 96px header + 40px filters */
 }
 .grid{display:grid;gap:16px;margin-bottom:16px}
 .grid.kpi{grid-template-columns:repeat(4, 1fr);gap:16px;max-width:100%;margin:0 auto;padding:0 8px}

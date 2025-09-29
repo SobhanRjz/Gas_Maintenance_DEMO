@@ -13,7 +13,7 @@ export default function DashboardPage() {
         <div className="grid kpi">
           <KPI title="Equipment Health Score" value="91" tone="ok" trend="up" />
           <KPI title="Active Alarms" value="3" tone="warn" trend="down" />
-          <KPI title="Unplanned Downtime" value="1.2h" tone="danger" trend="stable" />
+          <KPI title="Unplanned Downtime / month" value="1.2h" tone="ok" trend="stable" />
         </div>
       </section>
 
@@ -29,24 +29,24 @@ export default function DashboardPage() {
             {/* Add health state breakdown */}
             <div className="health-breakdown">
               <div className="health-item">
-                <span className="health-label">Good</span>
-                <span className="health-value">91%</span>
+                <span className="health-label">Normal</span>
+                <span className="health-value">67%</span>
                 <div className="health-bar">
-                  <div className="health-fill normal" style={{width: '91%'}}></div>
+                  <div className="health-fill normal" style={{width: '67%'}}></div>
                 </div>
               </div>
               <div className="health-item">
-                <span className="health-label">Caution</span>
-                <span className="health-value">7%</span>
+                <span className="health-label">Medium</span>
+                <span className="health-value">12%</span>
                 <div className="health-bar">
-                  <div className="health-fill warning" style={{width: '7%'}}></div>
+                  <div className="health-fill warning" style={{width: '12%'}}></div>
                 </div>
               </div>
               <div className="health-item">
-                <span className="health-label">Alert</span>
-                <span className="health-value">2%</span>
+                <span className="health-label">Critical</span>
+                <span className="health-value">21%</span>
                 <div className="health-bar">
-                  <div className="health-fill critical" style={{width: '2%'}}></div>
+                  <div className="health-fill critical" style={{width: '21%'}}></div>
                 </div>
               </div>
             </div>

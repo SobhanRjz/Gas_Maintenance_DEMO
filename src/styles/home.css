@@ -115,6 +115,22 @@
   margin-bottom: 24px;
 }
 
+.landing-logo {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.logo-image {
+  max-width: 200px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 .landing-title {
   font-size: clamp(4rem, 8vw, 5rem);
   font-weight: 300;

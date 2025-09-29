@@ -34,7 +34,7 @@ export function KPI({title,value,tone,trend}:{title:string;value:string;tone?:"o
                 {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
               </span>
               <span className="trend-label">
-                {trend === 'up' ? '+2.1%' : trend === 'down' ? '-1.3%' : '±0.5%'}
+                {trend === 'up' ? '+2.1%' : trend === 'down' ? '-1.3%' : '0.0%'}
               </span>
             </div>
           )}
