@@ -116,7 +116,7 @@
       "failure_modes": [
         "Wear"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (50*norm(bearing_vib_NDE_mm_s) + 50*norm(axial_disp_um))"
       },
@@ -170,7 +170,7 @@
         "Filter Clog",
         "Oil Degradation"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (60*norm(lube_oil_dp_bar) + 40*norm(lube_oil_temp_C))"
       },
@@ -188,7 +188,7 @@
         "Seal Leak",
         "DP Loss"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (60*norm(seal_gas_dp_bar) + 40*norm(seal_flow_Nm3_h))"
       },
@@ -206,7 +206,7 @@
         "Stiction",
         "Erosion"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (40*norm(recycle_valve_pos_pct) + 60*norm(surge_margin_pct))"
       },
@@ -214,8 +214,8 @@
     },
     {
       "id": "coolers",
-      "name": "Inter/After Coolers",
-      "component": "Heat Exchanger",
+      "name": "Oil/After Coolers",
+      "component": "Mechanical",
       "tags": [
         "lube_oil_dp_bar",
         "TT_in_C",
@@ -224,7 +224,7 @@
       "failure_modes": [
         "Fouling"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (100*norm(TT_out_C-TT_in_C))"
       },
@@ -241,7 +241,7 @@
       "failure_modes": [
         "Instability"
       ],
-      "downtime_impact": "Medium",
+      "downtime_impact": "Normal",
       "risk_calc": {
         "health_score_formula": "100 - (70*norm(loop_osc_index) + 30*norm(surge_margin_pct))"
       },

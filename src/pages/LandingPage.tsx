@@ -18,7 +18,7 @@ export default function LandingPage() {
       <div className="landing-content">
         <div className="landing-header">
           <h1 className="landing-title">
-            Compressor Maintenance
+            Compressor Predictive Maintenance
           </h1>
           <p className="landing-subtitle">
              Platform

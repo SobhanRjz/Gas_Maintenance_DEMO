@@ -62,11 +62,7 @@ export default function DashboardPage() {
           <div className="grid">
             <Card title="Bearing Vibration Trend - DE Side" meta="Last 24h • Updated 3 min ago">
             <div className="chart-container">
-              {/* Y-axis title */}
-              <div className="axis-title y-axis">
-                Vibration (mm/s)
-              </div>
-              {/* Threshold bands background */}
+              <div className="axis-title y-axis">Vibration (mm/s)</div>
               <div className="threshold-bands">
                 <div className="band band-hh"></div>
                 <div className="band band-h"></div>
@@ -79,7 +75,6 @@ export default function DashboardPage() {
                 points={[2.1, 2.3, 2.0, 2.8, 2.5, 2.2, 3.1, 2.9, 3.4, 3.2, 3.8, 3.0, 2.7, 2.4, 2.1, 1.9, 1.8]}
                 accent="var(--accent)"
               />
-              {/* Threshold labels */}
               <div className="threshold-labels">
                 <span className="threshold-label hh">7.0mm/s</span>
                 <span className="threshold-label h">4.5mm/s</span>
@@ -87,13 +82,97 @@ export default function DashboardPage() {
                 <span className="threshold-label l">1.5mm/s</span>
                 <span className="threshold-label ll">0.5mm/s</span>
               </div>
-              {/* X-axis title */}
-              <div className="axis-title x-axis">
-                Time (hours)
-              </div>
+              <div className="axis-title x-axis">Time (hours)</div>
             </div>
           </Card>
         </div>
+        </div>
+
+        {/* Sensor Analysis Section */}
+        <div className="chart-section">
+          <div className="row-header">
+            <h2 className="row-title">Sensor Analysis</h2>
+            <p className="row-subtitle">Real-time monitoring of critical parameters</p>
+          </div>
+          <div className="grid three">
+            <Card title="Motor Current" meta="3-Phase • Last 24h">
+              <div className="chart-container">
+                <div className="axis-title y-axis">Current (A)</div>
+                <div className="threshold-bands">
+                  <div className="band band-hh"></div>
+                  <div className="band band-h"></div>
+                  <div className="band band-n"></div>
+                  <div className="band band-l"></div>
+                  <div className="band band-ll"></div>
+                </div>
+                <MiniLine
+                  h={220}
+                  points={[185, 188, 190, 192, 195, 198, 202, 205, 208, 210, 215, 218, 220, 223, 225, 228, 230]}
+                  accent="#f59e0b"
+                />
+                <div className="threshold-labels">
+                  <span className="threshold-label hh">250A</span>
+                  <span className="threshold-label h">220A</span>
+                  <span className="threshold-label n">200A</span>
+                  <span className="threshold-label l">180A</span>
+                  <span className="threshold-label ll">160A</span>
+                </div>
+                <div className="axis-title x-axis">Time (hours)</div>
+              </div>
+            </Card>
+
+            <Card title="Discharge Pressure" meta="Stage 1 • Last 24h">
+              <div className="chart-container">
+                <div className="axis-title y-axis">Pressure (bar)</div>
+                <div className="threshold-bands">
+                  <div className="band band-hh"></div>
+                  <div className="band band-h"></div>
+                  <div className="band band-n"></div>
+                  <div className="band band-l"></div>
+                  <div className="band band-ll"></div>
+                </div>
+                <MiniLine
+                  h={220}
+                  points={[42.1, 42.5, 42.8, 43.2, 43.5, 43.8, 44.1, 44.5, 44.8, 45.2, 45.5, 45.8, 46.1, 46.5, 46.8, 47.2, 47.5]}
+                  accent="#10b981"
+                />
+                <div className="threshold-labels">
+                  <span className="threshold-label hh">52bar</span>
+                  <span className="threshold-label h">48bar</span>
+                  <span className="threshold-label n">45bar</span>
+                  <span className="threshold-label l">42bar</span>
+                  <span className="threshold-label ll">38bar</span>
+                </div>
+                <div className="axis-title x-axis">Time (hours)</div>
+              </div>
+            </Card>
+
+            <Card title="Bearing Temperature" meta="DE Side • Last 24h">
+              <div className="chart-container">
+                <div className="axis-title y-axis">Temperature (°C)</div>
+                <div className="threshold-bands">
+                  <div className="band band-hh"></div>
+                  <div className="band band-h"></div>
+                  <div className="band band-n"></div>
+                  <div className="band band-l"></div>
+                  <div className="band band-ll"></div>
+                </div>
+                <MiniLine
+                  h={220}
+                  points={[68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]}
+                  accent="#ef4444"
+                />
+                <div className="threshold-labels">
+                  <span className="threshold-label hh">110°C</span>
+                  <span className="threshold-label h">95°C</span>
+                  <span className="threshold-label n">80°C</span>
+                  <span className="threshold-label l">65°C</span>
+                  <span className="threshold-label ll">50°C</span>
+                </div>
+                <div className="axis-title x-axis">Time (hours)</div>
+              </div>
+            </Card>
+          </div>
         </div>
 
       </section>
